@@ -1,5 +1,5 @@
 
-## 1. Steps to run (type in console):
+## 1. Steps to run (replace USERNME and PASSWORD):
 
 ```
 psql -U postgres
