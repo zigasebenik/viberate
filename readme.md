@@ -1,6 +1,7 @@
 
-1. Steps to run (type in console):
+## 1. Steps to run (type in console):
 
+```
 psql -U postgres
 
 CREATE DATABASE viberate
@@ -12,5 +13,4 @@ migrate -database postgres://postgres:root@localhost:5432/viberate?sslmode=disab
 psql -U postgres -d viberate -f migrations/seed.sql
 
 air
-
-
+```
