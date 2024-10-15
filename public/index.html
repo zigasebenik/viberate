@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viberate</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-5 ">
+        <h1 class="text-3xl font-bold">Create user</h1>
+        <div id="userForm " class="mt-4 ">
+            <div class="mb-4 ">
+                <label class="block text-sm font-medium text-gray-700">First Name</label>
+                <input type="text" id="firstName" class="max-w-lg w-full mt-1 block p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                <input type="text" id="lastName" class=" max-w-lg w-full mt-1 block p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <button id="create" class="px-4 py-2 text-white bg-blue-600 rounded-md">Submit</button>
+        </div>
+    </div>
+
+    <div class="container mx-auto p-5 ">
+        <h1 class="text-3xl font-bold">Borrow/Return</h1>
+        <div id="userForm" class="mt-4">
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Book ID</label>
+                <input type="number" id="borrowID" class="max-w-lg w-full mt-1 block  p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">User ID</label>
+                <input type="number" id="userID" class="max-w-lg w-full mt-1 block  p-2 border border-gray-300 rounded-md" required>
+            </div>
+            <button id="borrow" class="px-4 py-2 text-white bg-blue-600 rounded-md">Borrow</button>
+            <button id="return" class="px-4 py-2 text-white bg-blue-600 rounded-md">Return</button>
+        </div>
+    </div>
+
+    <script>
+        async function postData(url = '', data = {}) {
+            console.log(data)
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json(); 
+        }
+
+
+        document.getElementById('create').onclick = async function(event) {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            try {
+                const result = await postData('/api/users', { first_name: firstName, last_name: lastName });
+                console.log('Created User: ' + JSON.stringify(result))
+            } catch (error) {
+                console.log('Error: ' + error.message)
+            }
+        };
+
+        document.getElementById('borrow').onclick = async function(event) {
+            const borrowID = parseInt(document.getElementById('borrowID').value); 
+            const userID = parseInt(document.getElementById('userID').value); 
+        try {
+                const result = await postData('/api/borrow', { book_id: borrowID, user_id: userID });
+                console.log('Borrow: ' + JSON.stringify(result))
+            } catch (error) {
+                console.log('Error: ' + error.message)
+            }
+        };
+
+        document.getElementById('return').onclick = async function(event) {
+            const borrowID = parseInt(document.getElementById('borrowID').value); 
+            const userID = parseInt(document.getElementById('userID').value); 
+        try {
+                const result = await postData('/api/return', { book_id: borrowID, user_id: userID });
+                console.log('Return: ' + JSON.stringify(result))
+            } catch (error) {
+                console.log('Error: ' + error.message)
+            }
+        };
+
+
+    </script>
+</body>
+</html>

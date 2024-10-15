@@ -1,0 +1,11 @@
+root = "."
+tmp_dir = "tmp" # Temporary directory for Air
+
+[build]
+  cmd = "go run main.go" 
+  include = ["*.go", "controllers/*.go", "models/*.go", "migrations/*.go", "database/*.go"] 
+  exclude = ["tmp/*", "public/*"]
+
+[log]
+  time_format = "2006-01-02 15:04:05"
+  level = "info"
