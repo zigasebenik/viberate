@@ -4,13 +4,13 @@
 ```
 psql -U postgres
 
-CREATE DATABASE viberate
+CREATE DATABASE viberate;
 
-exit
+\q
 
 migrate -database postgres://postgres:root@localhost:5432/viberate?sslmode=disable -path ./migrations up
 
 psql -U postgres -d viberate -f migrations/seed.sql
 
-air
+go run main.go
 ```

@@ -6,8 +6,6 @@ import (
 	"net/http"
 	"viberate-api/database"
 	"viberate-api/models"
-
-	"github.com/jackc/pgx"
 )
 
 func BorrowBook(write http.ResponseWriter, req *http.Request) {
@@ -22,7 +20,7 @@ func BorrowBook(write http.ResponseWriter, req *http.Request) {
 
 	var user models.User
 	err = database.DB.QueryRow(context.Background(), "SELECT id, first_name, last_name FROM users WHERE id=$1", library.UserID).Scan(&user.ID, &user.FirstName, &user.LastName)
-	if err != nil && pgx.ErrNoRows {
+	if err != nil {
 		http.Error(write, "User error", http.StatusInternalServerError)
 		return
 	}
