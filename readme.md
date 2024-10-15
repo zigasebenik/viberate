@@ -12,5 +12,7 @@ migrate -database postgres://postgres:root@localhost:5432/viberate?sslmode=disab
 
 psql -U postgres -d viberate -f migrations/seed.sql
 
+go mod tidy
+
 go run main.go
 ```
