@@ -8,9 +8,9 @@ CREATE DATABASE viberate;
 
 \q
 
-migrate -database postgres://postgres:root@localhost:5432/viberate?sslmode=disable -path ./migrations up
+migrate -database postgres://USERNAME:PASSWROD@localhost:5432/viberate?sslmode=disable -path ./migrations up
 
-psql -U postgres -d viberate -f migrations/seed.sql
+psql -U USERNAME -d viberate -f migrations/seed.sql
 
 go mod tidy
 
